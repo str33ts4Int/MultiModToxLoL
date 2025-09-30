@@ -1,0 +1,7 @@
+# This directory contains raw, unprocessed data
+# - Chat logs from League of Legends games
+# - Minimap screenshots/videos
+# - Game statistics and metadata
+# - Audio recordings (if applicable)
+
+# Add your raw data files here, but don't commit large files to git

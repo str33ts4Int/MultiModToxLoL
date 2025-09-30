@@ -1,0 +1,5 @@
+# This directory contains processed and cleaned data
+# - Preprocessed chat texts with toxicity labels
+# - Extracted minimap features
+# - Synchronized multimodal data
+# - Train/validation/test splits

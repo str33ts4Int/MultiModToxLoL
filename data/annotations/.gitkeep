@@ -1,0 +1,5 @@
+# This directory contains annotation files
+# - Toxicity labels (JSON/CSV format)
+# - Ground truth annotations
+# - Inter-annotator agreement data
+# - Label schemas and guidelines
