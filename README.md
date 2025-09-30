@@ -7,7 +7,7 @@ Im Rahmen des Moduls WI-Projekt wird dieses Projekt an der ZHAW School of Manage
 Das Projektteam besteht aus Yasemin Anik und Aadil Shariffdeen. 
 Betreut wird dieses Projekt von Benjamin Kühnis.
 
-**Projektziele**
+**Projektziele**:
 In diesem Projekt soll ein Multimodales Model entwickelt werden, welches toxisches Verhalten in League of Legends (LoL) identifiziert. Verschiedene Datenquellen sollen dabei verwendet werden, damit die Spieleraktivität möglichst umfassend abgebildet wird. Hierzu zählen unter anderem:
 
 • In-Game-Chat (einschliesslich Spam, Beleidigungen und aggressiver Kommunikation)
