@@ -75,9 +75,33 @@ df[['time', 'clean_text']] = df['text'].apply(
 df['text'] = df['clean_text']
 df = df.drop('clean_text', axis=1)
 
-# Create empty columns for manual toxicity labeling
-df['toxic'] = ''  # Empty column for you to fill with 0 or 1
-df['toxicity_type'] = ''  # Empty column for you to fill with toxicity type
+# Liste einfacher Toxic kkeywords
+toxic_keywords = [
+    "noob", "report", "ff", "troll", "afk", "int", "kys",
+    "useless", "trash", "feed", "stupid", "idiot", "haven't done anything"
+]
+
+def classify_toxicity(text):
+    if not isinstance(text, str):
+        return 0, "none"
+    lower = text.lower()
+    for word in toxic_keywords:
+        if word in lower:
+            # Kategorien grob unterscheiden
+            if word in ["report", "noob", "useless", "trash", "stupid", "idiot"]:
+                return 1, "flame"
+            elif word in ["ff", "afk", "int", "troll", "feed"]:
+                return 1, "text"
+            elif word in ["kys"]:
+                return 1, "severe"
+            else:
+                return 1, "other"
+    return 0, "none"
+
+# Anwenden auf die Spalte "text"
+df[["toxic", "toxicity_type"]] = df["text"].apply(
+    lambda x: pd.Series(classify_toxicity(x))
+)
 
 # Reorder columns
 columns_order = ['time', 'text', 'toxic', 'toxicity_type']
@@ -87,13 +111,14 @@ df = df[columns_order]
 df = df[df['text'].str.len() > 3].copy()
 
 # Remove rows where time is empty, None, or NaN
-df = df.dropna(subset=['time']).copy()  # Remove NaN/None values
-df = df[df['time'].str.strip() != ''].copy()  # Remove empty strings
+df = df.dropna(subset=['time']).copy()  
+df = df[df['time'].str.strip() != ''].copy()  
 df = df[df['time'].notna()].copy()  
 
 # Neues CSV speichern
 df.to_csv("chat_labeled_match_1.csv", index=False)
 
-print("Fertig! Clean chat data saved as chat_labeled_match_1.csv")
+print("Fertig! Annotierte Datei wurde als chat_labeled_match_1.csv gespeichert.")
 print(f"Removed columns: {columns_to_remove}")
+print(f"Filtered out invalid entries. Final dataset has {len(df)} rows.")
 
