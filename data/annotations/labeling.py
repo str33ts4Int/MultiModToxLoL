@@ -2,7 +2,7 @@ import pandas as pd
 import re
 
 # Datei laden
-file_path = "chat_output_match_1.csv"
+file_path = "chat_output_match_2.csv"
 df = pd.read_csv(file_path)
 
 # Remove unwanted columns
@@ -78,7 +78,7 @@ df = df.drop('clean_text', axis=1)
 # Liste einfacher Toxic kkeywords
 toxic_keywords = [
     "noob", "report", "ff", "troll", "afk", "int", "kys",
-    "useless", "trash", "feed", "stupid", "idiot", "haven't done anything"
+    "useless", "trash", "feed", "stupid", "idiot", "haven't done anything", "fuck", "fck", "end yourself", "KILL YOURSELF"
 ]
 
 def classify_toxicity(text):
@@ -88,11 +88,11 @@ def classify_toxicity(text):
     for word in toxic_keywords:
         if word in lower:
             # Kategorien grob unterscheiden
-            if word in ["report", "noob", "useless", "trash", "stupid", "idiot"]:
-                return 1, "flame"
-            elif word in ["ff", "afk", "int", "troll", "feed"]:
+            if word in ["report", "noob", "useless", "trash", "stupid", "idiot", "fuck", "fck"]:
                 return 1, "text"
-            elif word in ["kys"]:
+            elif word in ["ff", "afk", "int", "troll", "feed"]:
+                return 1, "gameplay"
+            elif word in ["kys", "end yourself", "KILL YOURSELF"]:
                 return 1, "severe"
             else:
                 return 1, "other"
@@ -116,9 +116,8 @@ df = df[df['time'].str.strip() != ''].copy()
 df = df[df['time'].notna()].copy()  
 
 # Neues CSV speichern
-df.to_csv("chat_labeled_match_1.csv", index=False)
+df.to_csv("chat_labeled_match_2.csv", index=False)
 
-print("Fertig! Annotierte Datei wurde als chat_labeled_match_1.csv gespeichert.")
+print("Fertig! Annotierte Datei wurde als chat_labeled_match_2.csv gespeichert.")
 print(f"Removed columns: {columns_to_remove}")
 print(f"Filtered out invalid entries. Final dataset has {len(df)} rows.")
-
